@@ -1,0 +1,56 @@
+from guizero import App, Text, TextBox, PushButton, error
+import random
+import datetime
+
+#here we show the date and time on the result panel
+e = datetime.datetime.now()
+
+print (e.strftime("%I:%M:%S %p"))
+
+print (e.strftime("%a, %b %d, %Y"))
+
+#here we show the results after users have put their desired numbers
+def _say_my_password():
+    _test_pass = Text(_app, text=text_box_changed())
+    _welcome_message.value = "Your random value is: " + str(_test_pass)
+
+# Define the form application
+_app = App(title="Password Creator", width=700, height=300)
+_chars = '1234567890'
+message = Text(_app, text="Welcome")
+_welcome_message = Text(_app, text="Create your random password here", size=19, font="Arial", color="hotpink")
+
+# TextBox for input of password length
+_length_label = Text(_app, text="Give me length of password:", size=11, font="Arial")
+_length = TextBox(_app, width=33)
+_length_init = 0
+
+# TextBox for input of password qty
+_qty_label = Text(_app, text="How many password you want: ")
+_qty_of_password = TextBox(_app, width=33)
+_qty_ini = 0
+
+# Create random password
+def text_box_changed():
+    if not _length.value or not _qty_of_password.value:
+        error("Input error", "You must type in numbers for height and width")
+
+    # char for creating password
+    _qty_ini = int(_qty_of_password.value)
+    _length_init = int(_length.value)
+
+    for _p in range(int(_qty_ini)):
+        _password = ""
+        for _c in range(int(_length_init)):
+            _password += random.choice(_chars)
+        print(_password)
+    return
+
+
+# create a push button to transfer value
+_button = PushButton(_app, command=_say_my_password, text="Click")
+
+
+
+
+_app.display()
